@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <!-- 资源文件 --> 
+  <properties resource="dbconfig.properties"/>
+  
+  <environments default="development">	<!-- 定义数据库连接池 -->
+    <environment id="development">		<!-- 一个数据库的资源配置 -->
+      <transactionManager type="JDBC"/>	<!-- 进行事务管理 -->
+      <dataSource type="POOLED">		<!-- 配置数据源 -->
+      	<!-- 数据库的驱动程序路径，配置的mysql驱动包中的类名称 -->
+        <property name="driver" value="${driver}"/>
+        <!-- 数据库的连接地址 -->
+        <property name="url" value="${url}"/>
+        <!-- 数据库连接的用户名 -->
+        <property name="username" value="${username}"/>
+        <!-- 数据库的连接密码 -->
+        <property name="password" value="${password}"/>
+      </dataSource>
+    </environment>
+  </environments>
+  
+  <!-- 配置的是每一张表的映射文件 -->
+  <mappers>
+  	<!-- 映射文件路径， 与POJO类同包 -->
+    <mapper resource="com/github/logsave/pojo/EmpMapper.xml"/> 
+  </mappers>
+</configuration>
+
+
+

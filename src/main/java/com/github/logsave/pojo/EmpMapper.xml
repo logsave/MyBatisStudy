@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 	每个POJO都对应MyBatis的一个命名空间，不能重复。
+  		resultType使用全路径
+  		设置命名空间，可以与不同表的同类型操作进行区分，使用时以“namespace.id”的方式调用
+  		命名空间按照表名称给出
+    -->
+<mapper namespace="com.github.logsave.pojo.EmpMapper">
+  <select id="selOne" resultType="com.github.logsave.pojo.Emp">
+    select * from emp where empno = #{empno}
+  </select>
+  
+  <insert id="creatOne" parameterType="com.github.logsave.pojo.Emp">
+  	INSERT INTO emp(empno,ename,job,mgr,hiredate,sal)
+  	VALUES (#{empno},#{ename},#{job},#{mgr},#{hiredate},#{sal})
+  </insert>
+</mapper>
