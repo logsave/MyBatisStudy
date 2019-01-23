@@ -8,12 +8,46 @@
   		命名空间按照表名称给出
     -->
 <mapper namespace="com.github.logsave.pojo.EmpMapper">
-  <select id="selOne" resultType="com.github.logsave.pojo.Emp">
-    select * from emp where empno = #{empno}
-  </select>
-  
+
   <insert id="creatOne" parameterType="com.github.logsave.pojo.Emp">
   	INSERT INTO emp(empno,ename,job,mgr,hiredate,sal)
   	VALUES (#{empno},#{ename},#{job},#{mgr},#{hiredate},#{sal})
   </insert>
+  
+  <!-- 数据更新操作，最简单的更新一定是基于Emp类的数据实现的 -->
+  <update id="updateOne" parameterType="com.github.logsave.pojo.Emp">
+  	UPDATE emp SET empno=#{empno}, ename=#{ename}, job=#{job}, 
+  		mgr=#{mgr}, hiredate=#{hiredate}, sal=#{sal}
+  	WHERE empno=#{empno}
+  </update>
+  
+  <!-- 删除数据，一般根据主键删除empno，empno这里是Integer类型 -->
+  <delete id="removeOne" parameterType="java.lang.Integer">
+  	DELETE FROM emp WHERE empno=#{empno}
+  </delete>
+  
+  <!-- 根据empno查询 -->
+  <select id="selOne" resultType="com.github.logsave.pojo.Emp">
+    SELECT empno,ename,job,mgr,hiredate,sal FROM emp 
+    WHERE empno=#{empno}
+  </select>
+  
+  <!-- 查询全部数据，此时配置的resultType表示当前查询结果中每一条数据返回的对象类型，不是整个方法的返回。
+   -->
+  <select id="selAll" resultType="com.github.logsave.pojo.Emp">
+   	SELECT empno,ename,job,mgr,hiredate,sal FROM emp 
+  </select>
+  
+  <!-- 定义分页查询，其中所有的参数都利用Map集合传递，返回的每行数据类型为Emp -->
+  <select id="selAllBySplit" parameterType="java.util.Map" resultType="com.github.logsave.pojo.Emp">
+	SELECT empno,ename,job,mgr,hiredate,sal FROM emp
+	WHERE ${column} LIKE #{keyWord}
+	LIMIT #{start}, #{lineSize}
+  </select>
+  
+  <!-- 查询全部数据量，参数使用Map集合，返回COUNT()的统计结果  -->
+  <select id="count" parameterType="java.util.Map" resultType="java.lang.Integer">
+ 	SELECT COUNT(empno) FROM emp 
+ 	WHERE ${column} LIKE #{keyWord}
+  </select>
 </mapper>
